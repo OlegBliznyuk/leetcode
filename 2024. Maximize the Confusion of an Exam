@@ -1,0 +1,46 @@
+# 2024. Maximize the Confusion of an Exam 
+# https://leetcode.com/problems/maximize-the-confusion-of-an-exam/
+
+# A teacher is writing a test with n true/false questions, with 'T' denoting true and 'F' denoting false. 
+# He wants to confuse the students by maximizing the number of consecutive questions with the same answer (multiple trues or multiple falses in a row).
+
+# You are given a string answerKey, where answerKey[i] is the original answer to the ith question. 
+# In addition, you are given an integer k, the maximum number of times you may perform the following operation:
+
+# Change the answer key for any question to 'T' or 'F' (i.e., set answerKey[i] to 'T' or 'F').
+# Return the maximum number of consecutive 'T's or 'F's in the answer key after performing the operation at most k times.
+
+#answerKey = "FFFFTTTTFTFFFFTTTFFTTFTFTFTFFFFFTFTTTTTTTTTTTTTTTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+
+# class Solution:
+#     def maxConsecutiveAnswers(self, answerKey: str, k: int) -> int:
+
+answerKey = "TFFFFFFFFFFFFFFFTFTTTTFTTT"
+answerKey = "TFFFTTTTT"
+answerKey = "TTFFFFFTFFF"
+k=2
+
+def MtCoaE(answerKey, k, TF):
+    currlen = 0       # current lenth
+    maxlen_temp = 0   # temp max lenth
+    maxlen_max = 0
+    for i in range(len(answerKey)):
+        currlen=0
+        k_temp=k
+        j=i
+        while k_temp >=0 and j<len(answerKey):
+            if answerKey[j] !=  TF: k_temp -= 1
+            if k_temp >=0: currlen += 1
+            j += 1
+        if  currlen > maxlen_temp:
+            maxlen_temp = currlen
+    if  maxlen_temp > maxlen_max:
+        maxlen_max = maxlen_temp
+    return maxlen_max
+
+def maxConsecutiveAnswers(answerKey, k,):
+    if MtCoaE(answerKey,k,"T") > MtCoaE(answerKey,k,"F"): return MtCoaE(answerKey,k,"T") 
+    else: return MtCoaE(answerKey,k,"F") 
+
+
+print(maxConsecutiveAnswers(answerKey, k,))
